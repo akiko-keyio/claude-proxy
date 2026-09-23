@@ -1,0 +1,3 @@
+interface:
+  display_name: Claude Proxy Setup
+  short_description: VPS proxy, SSHFS, and Claude Remote Control

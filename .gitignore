@@ -1,0 +1,5 @@
+.env
+*.log
+*.pub
+id_ed25519*
+known_hosts
