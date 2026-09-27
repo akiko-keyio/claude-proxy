@@ -71,6 +71,8 @@ Run on the VPS:
 sudo ./scripts/install-claude.sh
 ```
 
+Before authentication, complete `references/fingerprint-browser.md`: create a dedicated fingerprint profile, connect it through Gost or local SSH SOCKS5, and verify its IP, DNS, WebRTC, timezone, and locale. Do not use the ordinary user browser for Claude web sign-in or CLI OAuth.
+
 This installs Node.js 22, Claude Code, a dedicated `claude` user, and tmux. Then authenticate interactively as that user:
 
 ```bash
@@ -79,7 +81,7 @@ claude auth login --claudeai
 claude auth status
 ```
 
-Complete the OAuth flow in the same regional browser profile you intend to use for Claude, if identity consistency matters. The CLI prints an authorization URL and expects the returned code.
+The CLI prints an authorization URL and expects the returned code. Paste that URL only into the verified fingerprint profile and complete OAuth there. If the URL was opened elsewhere, deny the flow and restart it in the correct profile.
 
 ## 4. Mount a Windows folder
 
@@ -139,7 +141,7 @@ claude --remote-control claude-remote --permission-mode bypassPermissions
 
 Accept Claude's one-time bypass warning only if the user explicitly wants unprompted execution. For safer behavior, edit the script and use `acceptEdits`.
 
-When connected, Claude Code shows `/rc active` and a claude.ai session URL. Open it in the intended fingerprint-browser profile. For regional consistency, that browser profile should also use the VPS HTTPS proxy, Singapore/region timezone, and matching locale.
+When connected, Claude Code shows `/rc active` and a claude.ai session URL. Open that URL only in the same verified fingerprint-browser profile that completed Claude authorization. For regional consistency, that profile must use the VPS proxy and match the intended region's timezone and locale.
 
 Detach while keeping it running:
 
@@ -196,4 +198,5 @@ claude --remote-control claude-remote --permission-mode acceptEdits
 - Prefer HTTPS over plaintext HTTP.
 - Do not mount a whole drive when one project folder is enough.
 - Do not put Claude credentials, Tailscale auth URLs, OAuth codes, or proxy passwords in shell history or git.
+- Do not approve Claude OAuth or open Remote Control outside the verified fingerprint profile.
 - Remember that `bypassPermissions` is not sandboxing; it removes Claude Code prompts only.
